@@ -1,0 +1,84 @@
+package Lesson7;
+
+public class Cat {
+    String name;
+    boolean hungry;
+    private int appetite;
+
+    public int getAppetite() {
+        return appetite;
+    }
+
+    public void setAppetite(int appetite) {
+        this.appetite = appetite;
+    }
+
+    public Cat(String name, int appetite) {
+
+        this.name = name;
+        this.appetite = appetite;
+        this.hungry = true;
+    }
+
+    public void eat(Plate p){
+        if(p.getFood() > getAppetite() && hungry == true){
+            p.decreaseFood(appetite);
+            hungry = false;
+        }
+
+    }
+}
+
+class Plate{
+    private int food;
+
+    public int getFood() {
+        return food;
+    }
+
+    public void setFood(int food) {
+        this.food = food;
+    }
+
+    public Plate(int food) {
+        this.food = food;
+    }
+
+    void decreaseFood(int appetite){
+        food -= appetite;
+    }
+
+    void addFood(int food){
+        System.out.println("О, тарелка пуста. Добавлеяем.");
+        this.food += food;
+    }
+
+    void info(){
+        System.out.println("В тарелке: " + food);
+
+    }
+}
+
+class Main{
+    public static void main(String[] args) {
+        Cat cat = new Cat( "Becon", 10 );
+        Plate plate = new Plate(100);
+        plate.info();
+        cat.eat(plate);
+        plate.info();
+
+        Cat[] cat1 = new Cat[3];
+        cat1[0] = new Cat("Becon", 10);
+        cat1[1] = new Cat("Keks", 30);
+        cat1[2] = new Cat("Kokos", 10);
+
+        for (int i = 0; i < cat1.length; i++) {
+            cat1[i].eat(plate);
+        }
+        System.out.println("Коты поели");
+        plate.info();
+
+        plate.addFood(60);
+        plate.info();
+    }
+}
